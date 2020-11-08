@@ -1,7 +1,6 @@
 node {
     //how comes
-    //it has jam aws
-    //kkkkdgdggshhhkkkkdjhdfhjfhjf
+    //it has jam awww
     def mvnHome
     stage('Preparation') { // for display purposes
         // Get some code from a GitHub repository
