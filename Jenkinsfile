@@ -1,6 +1,6 @@
 node {
     //how comes
-    //it has jam
+    //it has jam awwwwww
     def mvnHome
     stage('Preparation') { // for display purposes
         // Get some code from a GitHub repository
