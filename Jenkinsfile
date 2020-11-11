@@ -27,13 +27,11 @@ pipeline {
     stage('SonarCloud') {
         environment {
     SCANNER_HOME = tool 'SonarQubeScanner'
-    ORGANIZATION = "benhurIvo"
     PROJECT_NAME = "java-maven"
                 }
     steps {
     withSonarQubeEnv(installationName: 'SonarCloudOne', credentialsId: 'SonarCloudOne') {
-        sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.organization=$ORGANIZATION \
-        -Dsonar.java.binaries=build/classes/java/ \
+        sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.java.binaries=build/classes/java/ \
         -Dsonar.projectKey=$PROJECT_NAME \
         -Dsonar.sources=.'''
                                     }
