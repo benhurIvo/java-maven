@@ -1,14 +1,14 @@
 node {
     //worked yes no no hmm aww worked
     //xattr -r -d com.apple.quarantine geckodriver
-    def mvnHome
+    def mvn
     stage('Preparation') { // for display purposes
         // Get some code from a GitHub repository
         git 'https://github.com/benhurIvo/java-maven.git'
         // Get the Maven tool.
         // ** NOTE: This 'M3' Maven tool must be configured
         // **       in the global configuration.
-        mvnHome = tool 'M3'
+        mvn = tool 'M3'
     }
     stage('Build') {
         // Run the maven build
