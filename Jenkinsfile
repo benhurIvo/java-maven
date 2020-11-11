@@ -10,11 +10,11 @@ pipeline {
             }
         }
 
-        /*stage('Test') {
+        stage('Test') {
             steps {
-                sh 'mvn install'
+                sh 'mvn clean install'
             }
-        }*/
+        }
 
     stage('SonarCloud') {
   environment {
