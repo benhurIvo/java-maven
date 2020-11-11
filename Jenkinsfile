@@ -31,7 +31,7 @@ node {
     ORGANIZATION = "benhurIvo"
     PROJECT_NAME = "java-maven"
                 }
-  steps {
+  //steps {
     withSonarQubeEnv(installationName: 'SonarCloudOne', credentialsId: 'SonarCloudOne') {
         sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.organization=$ORGANIZATION \
         -Dsonar.java.binaries=build/classes/java/ \
@@ -39,13 +39,13 @@ node {
         -Dsonar.sources=.'''
                                     }
                                     }
-                                }
+                                //}
 stage("Quality Gate") {
-  steps {
+  //steps {
     timeout(time: 30, unit: 'MINUTES') {
         waitForQualityGate abortPipeline: true
     }
-  }
+  //}
 }
 
 }
