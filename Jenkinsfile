@@ -16,10 +16,6 @@ pipeline {
                 sh 'mvn install'
             }
         }
-    stage('Unit Tests') {
-        junit '**/target/surefire-reports/TEST-*.xml'
-        archiveArtifacts 'target/*.jar'
-    }
 
     stage('SonarCloud') {
   environment {
