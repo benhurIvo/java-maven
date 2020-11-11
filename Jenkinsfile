@@ -32,11 +32,13 @@ node {
     PROJECT_NAME = "java-maven"
                 }
   //steps {
+    mvn "org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=true -Pcoverage-per-test"
     withSonarQubeEnv(installationName: 'SonarCloudOne', credentialsId: 'SonarCloudOne') {
-        sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.organization=$ORGANIZATION \
+        /*sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.organization=$ORGANIZATION \
         -Dsonar.java.binaries=build/classes/java/ \
         -Dsonar.projectKey=$PROJECT_NAME \
-        -Dsonar.sources=.'''
+        -Dsonar.sources=.'''*/
+        mvn "org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar"
                                     }
                                     }
                                 //}
