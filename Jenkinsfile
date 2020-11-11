@@ -27,7 +27,7 @@ pipeline {
     stage('SonarCloud') {
         environment {
     SCANNER_HOME = tool 'SonarQubeScanner'
-    ORGANIZATION = ""
+    ORGANIZATION = "benhurivo"
     PROJECT_NAME = "java-maven"
                 }
     steps {
