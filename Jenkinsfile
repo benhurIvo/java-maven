@@ -1,5 +1,6 @@
 node {
     //worked yes no no hmm aww worked
+    //xattr -r -d com.apple.quarantine geckodriver
     def mvnHome
     stage('Preparation') { // for display purposes
         // Get some code from a GitHub repository
@@ -19,8 +20,32 @@ node {
             }
         }
     }
-    stage('Results') {
+    stage('Unit Tests') {
         junit '**/target/surefire-reports/TEST-*.xml'
         archiveArtifacts 'target/*.jar'
     }
+
+    stage('SonarCloud') {
+  environment {
+    SCANNER_HOME = tool 'SonarQubeScanner'
+    ORGANIZATION = "benhurIvo"
+    PROJECT_NAME = "java-maven"
+                }
+  steps {
+    withSonarQubeEnv('SonarCloudOne') {
+        sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.organization=$ORGANIZATION \
+        -Dsonar.java.binaries=build/classes/java/ \
+        -Dsonar.projectKey=$PROJECT_NAME \
+        -Dsonar.sources=.'''
+                                    }
+                                    }
+                                }
+stage("Quality Gate") {
+  steps {
+    timeout(time: 1, unit: 'MINUTES') {
+        waitForQualityGate abortPipeline: true
+    }
+  }
+}
+
 }
