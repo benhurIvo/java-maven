@@ -32,9 +32,8 @@ pipeline {
                 }
     steps {
     withSonarQubeEnv(installationName: 'SonarCloudOne', credentialsId: 'SonarCloudOne') {
-        sh 'ls'
         sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.organization=$ORGANIZATION \
-        -Dsonar.java.binaries=build/classes/java/ \
+        -Dsonar.java.binaries=target/classes/ \
         -Dsonar.projectKey=$PROJECT_NAME \
         -Dsonar.sources=.'''
                                     }
