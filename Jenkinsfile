@@ -1,26 +1,21 @@
 pipeline {
     agent any
-    //worked yes no no hmm aww worked
-    //xattr -r -d com.apple.quarantine geckodriver
-    def mvnHome
-    stage('Preparation') { // for display purposes
-        // Get some code from a GitHub repository
-        git 'https://github.com/benhurIvo/java-maven.git'
-        // Get the Maven tool.
-        // ** NOTE: This 'M3' Maven tool must be configured
-        // **       in the global configuration.
-        mvnHome = tool 'M3'
+    tools {
+        maven 'M3'
     }
-    stage('Build') {
-        // Run the maven build
-        withEnv(["MVN_HOME=$mvnHome"]) {
-            if (isUnix()) {
-                sh '"$MVN_HOME/bin/mvn" -Dmaven.test.failure.ignore clean package'
-            } else {
-                bat(/"%MVN_HOME%\bin\mvn" -Dmaven.test.failure.ignore clean package/)
+
+    stages {
+        stage('Prepare') {
+            steps {
+                checkout scm
             }
         }
-    }
+
+        stage('Test') {
+            steps {
+                sh 'mvn install'
+            }
+        }
     stage('Unit Tests') {
         junit '**/target/surefire-reports/TEST-*.xml'
         archiveArtifacts 'target/*.jar'
@@ -48,5 +43,5 @@ stage("Quality Gate") {
     }
   }
 }
-
+}
 }
