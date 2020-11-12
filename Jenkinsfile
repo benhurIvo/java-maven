@@ -20,20 +20,16 @@ pipeline {
         }
     
     stage('Unit Tests') {   
-        node {
             
                 sh "mvn -B clean test"
                 stash name: "unit_tests", includes: "target/surefire-reports/**"
-            
-        }
+ 
     }
 
     stage('Integration Tests') {
-        node {
                 sh "mvn -B clean verify -Dsurefire.skip=true"
                 stash name: 'it_tests', includes: 'target/failsafe-reports/**'
             
-        }
     }
 
     stage('SonarCloud') {
