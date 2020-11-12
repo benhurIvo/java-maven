@@ -28,7 +28,8 @@ pipeline {
         }
     }
 
-    steps {
+    stage('Run Ansible') {
+        steps {
                 script {
                 
                def tfHome = tool name: 'ansible'
@@ -37,6 +38,7 @@ pipeline {
                     
     }
 }
+    }
 
     stage('SonarCloud') {
         environment {
