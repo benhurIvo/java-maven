@@ -24,17 +24,18 @@ pipeline {
             
                 sh "mvn -B clean test"
                 stash name: "unit_tests", includes: "target/surefire-reports/**"
+                jacoco()
             
         }
     }
 
-    stage('Integration Tests') {
+    /*stage('Integration Tests') {
         steps {
                 sh "mvn -B clean verify -Dsurefire.skip=true"
                 stash name: 'it_tests', includes: 'target/failsafe-reports/**'
             
         }
-    }
+    }*/
 
     stage('SonarCloud') {
         environment {
