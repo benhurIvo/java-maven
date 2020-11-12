@@ -22,9 +22,8 @@ pipeline {
     stage('Unit Tests') {   
         steps {
             
-                sh "mvn -B clean test"
+                sh "mvn clean test"
                 stash name: "unit_tests", includes: "target/surefire-reports/**"
-                jacoco()
             
         }
     }
