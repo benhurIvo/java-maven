@@ -30,7 +30,7 @@ pipeline {
 
     stage('Integration Tests') {
         steps {
-        	withEnv(["PATH+ANSIBLE"=${tool 'ansible'}]){
+        	withEnv([${tool 'ansible'}]){
                 sh "ansible --version"
                 //stash name: 'it_tests', includes: 'target/failsafe-reports/**'
            } 
