@@ -23,15 +23,15 @@ pipeline {
         steps {
             
                 sh "mvn clean test"
-                stash name: "unit_tests", includes: "target/surefire-reports/**"
+                //stash name: "unit_tests", includes: "target/surefire-reports/**"
             
         }
     }
 
     stage('Integration Tests') {
         steps {
-                sh "mvn clean verify -Dsurefire.skip=true"
-                stash name: 'it_tests', includes: 'target/failsafe-reports/**'
+                sh "ansible --version"
+                //stash name: 'it_tests', includes: 'target/failsafe-reports/**'
             
         }
     }
