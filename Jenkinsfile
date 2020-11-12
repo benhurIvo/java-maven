@@ -28,16 +28,12 @@ pipeline {
         }
     }
 
-    stage('Run Ansible') {
+    stage('Integration Tests') {
         steps {
-                script {
-                
-               def tfHome = tool name: 'ansible'
-                env.PATH = "${tfHome}:${env.PATH}"
-                 sh 'ansible --version'
-                    
-    }
-}
+                sh "docker images"
+                //stash name: 'it_tests', includes: 'target/failsafe-reports/**'
+            
+        }
     }
 
     stage('SonarCloud') {
