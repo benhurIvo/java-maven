@@ -28,13 +28,13 @@ pipeline {
         }
     }
 
-    /*stage('Integration Tests') {
+    stage('Integration Tests') {
         steps {
-                sh "mvn -B clean verify -Dsurefire.skip=true"
+                sh "mvn clean verify -Dsurefire.skip=true"
                 stash name: 'it_tests', includes: 'target/failsafe-reports/**'
             
         }
-    }*/
+    }
 
     stage('SonarCloud') {
         environment {
