@@ -2,7 +2,6 @@ pipeline {
     agent any
     tools {
         maven 'M3'
-        ansible 'ansible'
     }
 
     stages {
@@ -31,9 +30,10 @@ pipeline {
 
     stage('Integration Tests') {
         steps {
+        	withEnv(["PATH+ANSIBLE"=${tool 'ansible'}]){
                 sh "ansible --version"
                 //stash name: 'it_tests', includes: 'target/failsafe-reports/**'
-            
+           } 
         }
     }
 
