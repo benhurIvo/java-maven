@@ -1,9 +1,5 @@
 pipeline {
-    agent {
-  docker {
-    image 'maven:3.5.0-jdk-8'
-  }
-}
+    agent any
     tools {
         maven 'M3'
     }
@@ -32,14 +28,7 @@ pipeline {
         }
     }
 
-    stage('Integration Tests') {
-        steps {
-                sh "docker images"
-                //stash name: 'it_tests', includes: 'target/failsafe-reports/**'
-            
-        }
-    }
-
+    //Code quality
     stage('SonarCloud') {
         environment {
     SCANNER_HOME = tool 'SonarQubeScanner'
@@ -55,12 +44,19 @@ pipeline {
                                     }
                                     }
                                 }
-/*stage("Quality Gate") {
-  steps {
-    timeout(time: 5, unit: 'MINUTES') {
-        waitForQualityGate abortPipeline: true
-    }
-  }
-}*/
+    /*stage('Deploy') {
+        steps {
+                sh "mvn clean install -Ddocker"
+                sh "docker run -p 8090:8090 my_code"
+            
+        }
+    }*/
+
+    /*stage('Deploy Testing') {
+        steps {
+                sh "mvn test 'seleniumTest'"
+            
+        }
+    }*/
 }
 }
