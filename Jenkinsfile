@@ -23,7 +23,6 @@ pipeline {
         steps {
             
                 sh "mvn clean test"
-                //stash name: "unit_tests", includes: "target/surefire-reports/**"
             
         }
     }
